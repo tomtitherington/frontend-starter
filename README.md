@@ -20,6 +20,20 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Adding shadcn/ui components
+
+This project uses shadcn/ui by **copying component source in manually** rather than the shadcn CLI, so the code is ours to own and edit.
+
+Do **not** run `shadcn add` — there is no `components.json`, and the `pnpm-workspace.yaml` causes the CLI to treat the repo as a monorepo root and bail without writing anything.
+
+To add a component:
+
+1. Copy its source from [ui.shadcn.com/docs/components](https://ui.shadcn.com/docs/components) into `src/components/ui/` as a kebab-case file (e.g. `card.tsx`).
+2. Point any `cn()` import at `@/lib/utils`.
+3. Edit it however you like.
+
+The runtime packages shadcn components rely on (`class-variance-authority`, `clsx`, `tailwind-merge`, `lucide-react`, `tw-animate-css`) are already installed. The `shadcn` CLI package in `package.json` is not needed for this workflow.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
