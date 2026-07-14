@@ -64,7 +64,7 @@ pnpm build      # next build
 
 Notes:
 
-- It uses the pnpm version pinned in `package.json`'s `packageManager` field and Node 22 (current LTS), with pnpm's store cached between runs.
+- It uses the pnpm version pinned in `package.json`'s `packageManager` field and Node 26, with pnpm's store cached between runs.
 - `--frozen-lockfile` makes the install fail if `pnpm-lock.yaml` is out of sync with `package.json`, so lockfile drift is caught in CI.
 - In-progress runs for a ref are cancelled when new commits land on it (e.g. pushing again to a PR).
 
