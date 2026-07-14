@@ -52,6 +52,29 @@ Setup notes:
 
 Write a story next to its component as `*.stories.tsx` (see `src/components/ui/button.stories.tsx` for the pattern). Add `tags: ["autodocs"]` to generate a docs page automatically.
 
+## Continuous Integration
+
+A GitHub Actions workflow (`.github/workflows/ci.yml`) runs on every push to `main` and on all pull requests. It installs dependencies with a frozen lockfile, then runs, in order:
+
+```bash
+pnpm lint       # eslint
+pnpm typecheck  # tsc --noEmit
+pnpm build      # next build
+```
+
+Notes:
+
+- It uses the pnpm version pinned in `package.json`'s `packageManager` field and Node 22 (current LTS), with pnpm's store cached between runs.
+- `--frozen-lockfile` makes the install fail if `pnpm-lock.yaml` is out of sync with `package.json`, so lockfile drift is caught in CI.
+- In-progress runs for a ref are cancelled when new commits land on it (e.g. pushing again to a PR).
+
+## Dependency updates
+
+[Dependabot](https://docs.github.com/code-security/dependabot) is configured in `.github/dependabot.yml`. It's a built-in GitHub service (no Actions required) that opens pull requests to keep dependencies current — those PRs are then checked by the CI workflow above.
+
+- **npm** — checks weekly and updates `pnpm-lock.yaml` (the `npm` ecosystem covers pnpm). Non-major dev and production updates are grouped into a PR each to reduce noise; major bumps come as individual PRs.
+- **github-actions** — keeps the action versions used in `.github/workflows/` up to date.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
