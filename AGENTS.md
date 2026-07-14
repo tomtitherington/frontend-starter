@@ -14,6 +14,15 @@ This project uses pnpm as the package manager.
 
 `.tsx` files should use kebab-case for the file name and PascalCase for the component definition.
 
+# Storybook
+
+Storybook (Vite framework, `@storybook/nextjs-vite`) is used to visualise components. Run it with `pnpm storybook`.
+
+- Colocate stories with the component as `<component>.stories.tsx` in the same directory.
+- Story files are picked up from `src/**/*.stories.tsx`; global config lives in `.storybook/`.
+- Tailwind, the design tokens, the `@/*` alias, and a light/dark toggle are already wired up — just import the component and write stories. See `src/components/ui/button.stories.tsx`.
+- Add `tags: ["autodocs"]` to a story's `meta` for an auto-generated docs page.
+
 # Adding shadcn/ui components
 
 Add shadcn components by **copying the source in by hand** — do not run the shadcn CLI (`shadcn add`).

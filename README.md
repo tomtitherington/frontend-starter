@@ -34,6 +34,24 @@ To add a component:
 
 The runtime packages shadcn components rely on (`class-variance-authority`, `clsx`, `tailwind-merge`, `lucide-react`, `tw-animate-css`) are already installed. The `shadcn` CLI package in `package.json` is not needed for this workflow.
 
+## Storybook
+
+Components can be developed and visualised in isolation with [Storybook](https://storybook.js.org).
+
+```bash
+pnpm storybook        # dev server on http://localhost:6006
+pnpm build-storybook  # static build into storybook-static/
+```
+
+Setup notes:
+
+- Uses the **Vite-based** framework (`@storybook/nextjs-vite`), so it runs on Vite rather than the customised Next.js build.
+- Tailwind v4 and the shadcn design tokens work in stories because `.storybook/preview.tsx` imports `src/app/globals.css` and Vite reuses the existing `postcss.config.mjs`.
+- The toolbar has a **light/dark theme toggle** wired to the `.dark` class (via `@storybook/addon-themes`).
+- The `@/*` import alias is resolved in `.storybook/main.ts`.
+
+Write a story next to its component as `*.stories.tsx` (see `src/components/ui/button.stories.tsx` for the pattern). Add `tags: ["autodocs"]` to generate a docs page automatically.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
